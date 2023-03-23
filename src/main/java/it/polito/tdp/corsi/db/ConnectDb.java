@@ -8,7 +8,7 @@ public class ConnectDb {
 
 	public static Connection getConnection() {
 		
-		String url = "jdbc:mysql://localhost/iscritticorsi?user=root";
+		String url = "jdbc:mysql://localhost/iscritticorsi?user=root&password=password";
 		
 		try {
 			return DriverManager.getConnection(url);

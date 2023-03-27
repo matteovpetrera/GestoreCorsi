@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.corsi.model.Corso;
+import it.polito.tdp.corsi.model.Divisione;
 import it.polito.tdp.corsi.model.Model;
+import it.polito.tdp.corsi.model.Studente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -96,16 +98,52 @@ public class FXMLController {
     	
     	int output = this.model.getNumeroStudentiByPeriodo(periodoNumerico);
     	txtRisultato.setText(String.valueOf(output));
+    	
+    	/*
+    	 * Map<Corso, Integer> risultato =  new HashMap<Corso, Integer>;
+    	 * risultato = this.model.getCorsoIscritti(periodo);
+    	 * this.txtRisultato.clear();
+    	 * 
+    	 * for(Corso c: risultato.keySet()){
+    	 * 		txtRisultato.appendText(risultato.get(c) +"\n");
+    	 * 	}
+    	 */
     }
 
     @FXML
     void stampaDivisione(ActionEvent event) {
-
+    	
+    	String codIns = this.txtCorso.getText();
+    	if(codIns.isEmpty()) {
+    		txtRisultato.setText("inserisci codice di un corso");
+    		return;
+    	}
+    	List<Divisione> risultato = this.model.getDivisioneIscrittiCorso(codIns);
+    	
+    	txtRisultato.clear();
+    	
+    	for(Divisione d: risultato) {
+    		txtRisultato.appendText(d.getCDS()+" "+d.getnStudenti()+"\n");
+    	}
     }
 
     @FXML
     void stampaStudenti(ActionEvent event) {
 
+    	String codIns = this.txtCorso.getText();
+    	if(codIns.isEmpty()) {
+    		txtRisultato.setText("inserisci codice di un corso");
+    		return;
+    	}
+    	List<Studente> risultato = this.model.getIscrittiCorso(codIns);
+    	
+    	txtRisultato.clear();
+    	
+    	for(Studente s: risultato) {
+    		txtRisultato.appendText(s + "\n");
+    	}
+    	
+    	
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
